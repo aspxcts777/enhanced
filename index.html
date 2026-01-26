@@ -123,12 +123,12 @@
             z-index: -1;
         }
 
-        /* NEW STYLE FOR HERO LOGO */
+        /* HERO LOGO */
         .hero-logo {
-            width: 350px; /* Larger than header logo */
+            width: 80px;
             height: auto;
             margin-bottom: 20px;
-            filter: drop-shadow(0 0 25px rgba(234, 0, 255, 0.4)); /* Purple glow */
+            filter: drop-shadow(0 0 25px rgba(234, 0, 255, 0.4));
         }
 
         .hero h1 {
@@ -297,8 +297,8 @@
             <h1>YouTube on Desktop.<br><span>Enhanced.</span></h1>
             <p>Experience YouTube with no ads, true OLED dark mode, hardware acceleration, and seamless desktop integration.</p>
             <div class="btn-group">
-                <a href="https://github.com/aspxcts777/EnhancedTube/releases" class="btn btn-primary">
-                    Download Installer
+                <a href="https://github.com/aspxcts777/EnhancedTube/releases" class="btn btn-primary" id="hero-dl-btn">
+                    Download Installer (v1.1.0)
                 </a>
                 <a href="https://github.com/aspxcts777/EnhancedTube" class="btn btn-secondary">
                     View Source Code
@@ -351,8 +351,8 @@
                 <p style="margin: 20px 0 30px 0; color: var(--text-muted);">
                     Get the latest version for Windows, Linux, and MacOS.
                 </p>
-                <a href="https://github.com/aspxcts777/EnhancedTube/releases" class="btn btn-primary">
-                    Download Latest Release
+                <a href="https://github.com/aspxcts777/EnhancedTube/releases" class="btn btn-primary" id="cta-dl-btn">
+                    Download Latest Release (v1.1.0)
                 </a>
             </div>
         </div>
@@ -366,6 +366,23 @@
             </p>
         </div>
     </footer>
+
+    <script>
+        // Fetches the latest release tag from GitHub API and updates the buttons
+        fetch('https://api.github.com/repos/aspxcts777/EnhancedTube/releases/latest')
+            .then(response => response.json())
+            .then(data => {
+                if (data.tag_name) {
+                    const version = data.tag_name;
+                    const heroBtn = document.getElementById('hero-dl-btn');
+                    const ctaBtn = document.getElementById('cta-dl-btn');
+                    
+                    if (heroBtn) heroBtn.textContent = `Download Installer (${version})`;
+                    if (ctaBtn) ctaBtn.textContent = `Download Latest Release (${version})`;
+                }
+            })
+            .catch(error => console.log('Could not fetch latest version, using default text.'));
+    </script>
 
 </body>
 </html>
