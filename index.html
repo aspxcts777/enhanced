@@ -10,15 +10,17 @@
     <style>
         /* --- VARIABLES & RESET --- */
         :root {
-            /* LOGO GRADIENT */
             --primary-gradient: linear-gradient(135deg, #ea00ff 0%, #6200ff 100%);
-            
-            --bg-color: #050505; /* Deep OLED Black */
+            --bg-color: #050505; 
             --card-bg: #121212;
             --text-main: #ffffff;
             --text-muted: #a0a0a0;
             --font-main: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             --border-radius: 12px;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         * {
@@ -38,7 +40,6 @@
         a { text-decoration: none; color: inherit; transition: 0.3s; }
         ul { list-style: none; }
 
-        /* --- LAYOUT UTILITIES --- */
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -47,6 +48,44 @@
 
         .section {
             padding: 80px 0;
+        }
+
+        /* --- ANIMATIONS --- */
+        
+        /* Keyframes for the initial load animation */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Apply this to Hero content to animate on load */
+        .hero-animate {
+            opacity: 0; /* Hidden by default */
+            animation: fadeUp 2s ease-out forwards;
+        }
+
+        /* Stagger delays for hero elements so they don't appear all at once */
+        .hero-animate:nth-child(1) { animation-delay: 0.2s; } /* Logo */
+        .hero-animate:nth-child(2) { animation-delay: 0.4s; } /* Title */
+        .hero-animate:nth-child(3) { animation-delay: 0.6s; } /* Text */
+        .hero-animate:nth-child(4) { animation-delay: 0.8s; } /* Buttons */
+
+        /* Scroll Reveal Classes (Javascript will toggle these) */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1.5s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         /* --- HEADER --- */
@@ -67,7 +106,6 @@
             align-items: center;
         }
 
-        /* HEADER LOGO STYLES */
         .logo {
             display: flex;
             align-items: center;
@@ -78,11 +116,7 @@
             cursor: pointer;
         }
 
-        .logo img {
-            height: 40px;
-            width: auto;
-            display: block;
-        }
+        .logo img { height: 40px; width: auto; display: block; }
 
         .logo span {
             background: var(--primary-gradient);
@@ -97,9 +131,7 @@
             font-weight: 500;
         }
 
-        .nav-links a:hover {
-            color: #fff;
-        }
+        .nav-links a:hover { color: #fff; }
 
         /* --- HERO SECTION --- */
         .hero {
@@ -123,7 +155,6 @@
             z-index: -1;
         }
 
-        /* HERO LOGO */
         .hero-logo {
             width: 350px;
             height: auto;
@@ -187,9 +218,7 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
+        .btn-secondary:hover { background: rgba(255, 255, 255, 0.2); }
 
         /* --- FEATURES GRID --- */
         .features-grid {
@@ -224,17 +253,22 @@
             font-size: 1.5rem;
         }
 
-        .feature-card h3 {
-            margin-bottom: 10px;
-            font-size: 1.3rem;
+        .soon h1 span {
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .feature-card p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-        }
+        .soon h1 {
+            font-size: 20px;
+            text-align: center;
+            padding-bottom: 40px;
+        }        
 
-        /* --- DOWNLOAD / CTA --- */
+        .feature-card h3 { margin-bottom: 10px; font-size: 1.3rem; }
+        .feature-card p { color: var(--text-muted); font-size: 0.95rem; }
+
+        /* --- CTA SECTION --- */
         .cta-section {
             text-align: center;
             background: linear-gradient(180deg, rgba(98, 0, 255, 0.05) 0%, rgba(0,0,0,0) 100%);
@@ -258,11 +292,8 @@
             font-size: 0.9rem;
             border-top: 1px solid rgba(255,255,255,0.05);
         }
-
-        footer a:hover {
-            color: #fff;
-            text-decoration: underline;
-        }
+        
+        footer a:hover { color: #fff; text-decoration: underline; }
 
         /* --- RESPONSIVE --- */
         @media (max-width: 768px) {
@@ -277,13 +308,13 @@
     <header>
         <div class="container">
             <nav>
-                <div class="logo">
+                <div class="logo" onclick="window.location.href='index.html'">
                     <img src="https://raw.githubusercontent.com/aspxcts777/EnhancedTube/main/icon.png" alt="EnhancedTube Logo">
                     <span>EnhancedTube</span>
                 </div>
                 <div class="nav-links">
                     <a href="#features">Features</a>
-                    <a href="#download">Download</a>
+                    <a href="download.html">Download</a>
                     <a href="https://github.com/aspxcts777/EnhancedTube" target="_blank">GitHub</a>
                 </div>
             </nav>
@@ -292,12 +323,20 @@
 
     <section class="hero">
         <div class="container">
-            <img src="https://raw.githubusercontent.com/aspxcts777/EnhancedTube/main/icon.png" alt="EnhancedTube Logo" class="hero-logo">
+            <div class="hero-animate">
+                <img src="https://raw.githubusercontent.com/aspxcts777/EnhancedTube/main/icon.png" alt="EnhancedTube Logo" class="hero-logo">
+            </div>
             
-            <h1>YouTube on Desktop.<br><span>Enhanced.</span></h1>
-            <p>Experience YouTube with no ads, true OLED dark mode, hardware acceleration, and seamless desktop integration.</p>
-            <div class="btn-group">
-                <a href="https://github.com/aspxcts777/EnhancedTube/releases" class="btn btn-primary" id="hero-dl-btn">
+            <div class="hero-animate">
+                <h1>YouTube on Desktop.<br><span>Enhanced.</span></h1>
+            </div>
+
+            <div class="hero-animate">
+                <p>Experience YouTube with no ads, true OLED dark mode, hardware acceleration, and seamless desktop integration.</p>
+            </div>
+
+            <div class="hero-animate btn-group">
+                <a href="download.html" class="btn btn-primary" id="hero-dl-btn">
                     Download Installer (v1.1.0)
                 </a>
                 <a href="https://github.com/aspxcts777/EnhancedTube" class="btn btn-secondary">
@@ -310,32 +349,32 @@
     <section id="features" class="section">
         <div class="container">
             <div class="features-grid">
-                <div class="feature-card">
+                <div class="feature-card reveal">
                     <div class="icon-box">🚫</div>
                     <h3>Ad Nuke</h3>
                     <p>Automatically clicks skip, removes banners, and speeds up unskippable ads to 16x speed instantly.</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card reveal">
                     <div class="icon-box">🎨</div>
                     <h3>Custom Appearance</h3>
                     <p>Change the default "Red" to any color you like. Includes a True Black mode optimized for OLED screens.</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card reveal">
                     <div class="icon-box">⚡</div>
                     <h3>High Performance</h3>
                     <p>Built with Electron. Supports Hardware Acceleration, AV1 codec, Zero Copy, and experimental QUIC protocol.</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card reveal">
                     <div class="icon-box">🖥️</div>
                     <h3>Desktop Native</h3>
                     <p>Always-on-top mode, native context menus, and system theme synchronization for a seamless experience.</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card reveal">
                     <div class="icon-box">📱</div>
                     <h3>Shorts Control</h3>
                     <p>Take back control. Toggle options to manage, replace, or hide YouTube Shorts entirely.</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card reveal">
                     <div class="icon-box">🔒</div>
                     <h3>Privacy & Open Source</h3>
                     <p>Project is fully open-source. No hidden tracking, fully transparent, and built by the community.</p>
@@ -344,19 +383,25 @@
         </div>
     </section>
 
-    <section id="download" class="section cta-section">
+    <section id="download" class="section cta-section reveal">
         <div class="container">
             <div class="cta-box">
                 <h2>Ready to upgrade your experience?</h2>
                 <p style="margin: 20px 0 30px 0; color: var(--text-muted);">
                     Get the latest version for Windows, Linux, and MacOS.
                 </p>
-                <a href="https://github.com/aspxcts777/EnhancedTube/releases" class="btn btn-primary" id="cta-dl-btn">
+                <a href="download.html" class="btn btn-primary" id="cta-dl-btn">
                     Download Latest Release (v1.1.0)
                 </a>
             </div>
         </div>
     </section>
+
+    <section id="EnhancedMusic" class="soon">
+        <div class="container">
+            <h1><span>EnhancedMusic </span>coming soon. </h1>
+        </div>
+    </section>    
 
     <footer>
         <div class="container">
@@ -368,7 +413,7 @@
     </footer>
 
     <script>
-        // Fetches the latest release tag from GitHub API and updates the buttons
+        // 1. AUTO-UPDATE VERSION SCRIPT
         fetch('https://api.github.com/repos/aspxcts777/EnhancedTube/releases/latest')
             .then(response => response.json())
             .then(data => {
@@ -382,6 +427,23 @@
                 }
             })
             .catch(error => console.log('Could not fetch latest version, using default text.'));
+
+        // 2. SCROLL REVEAL SCRIPT
+        // Uses IntersectionObserver to detect when elements enter the viewport
+        const observerOptions = {
+            threshold: 0.1 // Trigger when 10% of the element is visible
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active'); // Add class to trigger CSS transition
+                }
+            });
+        }, observerOptions);
+
+        // Target all elements with class 'reveal'
+        document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
     </script>
 
 </body>
