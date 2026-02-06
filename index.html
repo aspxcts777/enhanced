@@ -9,262 +9,285 @@
 
 <link rel="icon" sizes="512x512" href="icon.png">
 <link rel="apple-touch-icon" href="icon.png">
-<link rel="preload" href="icon.png" as="image">
-<link rel="preconnect" href="https://api.github.com">
 
 <style>
-:root{
---grad:linear-gradient(135deg,#ea00ff,#6200ff);
---bg:#050505;
---card:#121212;
---text:#fff;
---muted:#a0a0a0;
+:root {
+    --grad: linear-gradient(135deg, #ea00ff, #6200ff);
+    --bg: #050505;
+    --card: #121212;
+    --text: #fff;
+    --muted: #a0a0a0;
 }
 
-*{margin:0;padding:0;box-sizing:border-box}
-html,body{max-width:100%;overflow-x:hidden}
-body{background:var(--bg);color:var(--text);font-family:Segoe UI,Roboto,Arial,sans-serif}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { max-width: 100%; overflow-x: hidden; }
+body { background: var(--bg); color: var(--text); font-family: Segoe UI, Roboto, Arial, sans-serif; }
 
-.container{max-width:1200px;margin:auto;padding:0 20px}
-.section{padding:80px 0}
+/* Global Image Reset */
+img { max-width: 100%; height: auto; display: block; }
 
-header{
-position:fixed;
-top:0;
-width:100%;
-background:rgba(5,5,5,.9);
-backdrop-filter:blur(10px);
-border-bottom:1px solid rgba(255,255,255,.05);
-z-index:1000
+.container { max-width: 1200px; margin: auto; padding: 0 24px; } /* Increased padding slightly */
+.section { padding: 80px 0; }
+
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: rgba(5, 5, 5, .9);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, .05);
+    z-index: 1000;
+    height: 70px; /* Fixed height for consistency */
+    display: flex;
+    align-items: center;
 }
 
-nav{
-display:flex;
-justify-content:space-between;
-align-items:center
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
 }
 
-.logo{
-display:flex;
-align-items:center;
-gap:12px;
-font-weight:800;
-font-size:1.4rem;
-cursor:pointer
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 800;
+    font-size: 1.4rem;
+    cursor: pointer;
+    z-index: 1001; /* Keeps logo above mobile menu */
 }
 
-.logo img{height:55px}
+.logo img { height: 40px; } /* Adjusted size */
 
-.logo span{
-background:var(--grad);
--webkit-background-clip:text;
--webkit-text-fill-color:transparent
+.logo span {
+    background: var(--grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
-.nav-links{
-display:flex
+.nav-links { display: flex; align-items: center; }
+
+.nav-links a {
+    margin-left: 30px;
+    color: var(--muted);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
 }
 
-.nav-links a{
-margin-left:30px;
-color:var(--muted);
-text-decoration:none;
-font-weight:500
-}
+.nav-links a:hover { color: #fff; }
 
-.nav-links a:hover{color:#fff}
-
-.hamburger{
-display:none;
-font-size:2rem;
-cursor:pointer;
-text-align: center;
-align-self: center;
+.hamburger {
+    display: none;
+    font-size: 1.8rem;
+    cursor: pointer;
+    z-index: 1002;
+    padding: 10px; /* larger touch target */
 }
 
 /* HERO */
-
-.hero{
-min-height:calc(100vh - 120px);
-display:flex;
-align-items:center;
-justify-content:center;
-text-align:center;
-position:relative;
-padding-top:120px
+.hero {
+    min-height: 100vh; /* Changed to full VH */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    padding-top: 80px; /* offset header */
+    padding-bottom: 40px;
 }
 
-.hero::before{
-content:'';
-position:absolute;
-width:600px;
-height:600px;
-background:var(--grad);
-filter:blur(140px);
-opacity:.15;
-border-radius:50%;
-z-index:-1
+.hero::before {
+    content: '';
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    background: var(--grad);
+    filter: blur(140px);
+    opacity: .15;
+    border-radius: 50%;
+    z-index: -1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
-.hero-logo{
-width:360px;
-filter:drop-shadow(0 0 25px rgba(234,0,255,.4));
-margin-bottom:25px
+.hero-logo {
+    width: 300px; /* Slightly smaller base size */
+    margin: 0 auto 25px auto;
+    filter: drop-shadow(0 0 25px rgba(234, 0, 255, .4));
 }
 
-.hero h1{
-font-size:4rem;
-line-height:1.1;
-margin-bottom:20px
+.hero h1 {
+    font-size: 4rem;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    letter-spacing: -1px;
 }
 
-.hero h1 span{
-background:var(--grad);
--webkit-background-clip:text;
--webkit-text-fill-color:transparent
+.hero h1 span {
+    background: var(--grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
-.hero p{
-max-width:600px;
-margin:auto;
-color:var(--muted);
-font-size:1.25rem
+.hero p {
+    max-width: 600px;
+    margin: auto;
+    color: var(--muted);
+    font-size: 1.25rem;
+    line-height: 1.6;
 }
 
-.btn-group{
-display:flex;
-gap:20px;
-justify-content:center;
-margin-top:40px
+.btn-group {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 40px;
 }
 
-.btn{
-padding:14px 32px;
-border-radius:50px;
-font-weight:600;
-cursor:pointer;
-text-decoration:none;
-display:inline-flex;
-justify-content:center;
-align-items:center
+.btn {
+    padding: 14px 32px;
+    border-radius: 50px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.btn-primary{
-background:var(--grad);
-color:#fff;
-box-shadow:0 10px 30px rgba(98,0,255,.3)
+.btn:active { transform: scale(0.98); }
+
+.btn-primary {
+    background: var(--grad);
+    color: #fff;
+    box-shadow: 0 10px 30px rgba(98, 0, 255, .3);
 }
 
-.btn-secondary{
-background:rgba(255,255,255,.1);
-border:1px solid rgba(255,255,255,.1)
+.btn-secondary {
+    background: rgba(255, 255, 255, .1);
+    border: 1px solid rgba(255, 255, 255, .1);
+    color: #fff;
 }
 
 /* FEATURES */
-
-.features-grid{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:40px;
-margin-top:40px
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    margin-top: 20px;
 }
 
-.feature-card{
-background:var(--card);
-padding:28px;
-border-radius:14px;
-border:1px solid rgba(255,255,255,.05);
-transition:.3s
+.feature-card {
+    background: var(--card);
+    padding: 30px;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, .05);
+    transition: .3s;
+    height: 100%;
 }
 
-.feature-card:hover{
-transform:translateY(-6px);
-border-color:rgba(234,0,255,.35)
+.feature-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(234, 0, 255, .35);
 }
 
-.icon-box{
-font-size:1.6rem;
-margin-bottom:18px
+.icon-box {
+    font-size: 2rem;
+    margin-bottom: 18px;
 }
+
+.feature-card h3 { margin-bottom: 10px; font-size: 1.2rem; }
+.feature-card p { color: var(--muted); line-height: 1.5; }
 
 /* CTA */
-
-.cta-box{
-background:var(--card);
-padding:50px;
-border-radius:22px;
-border:1px solid rgba(255,255,255,.1);
-text-align:center;
-max-width:800px;
-margin:auto
+.cta-box {
+    background: var(--card);
+    padding: 60px 20px;
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, .1);
+    text-align: center;
+    max-width: 800px;
+    margin: auto;
+    background: linear-gradient(to bottom, var(--card), #0a0a0a);
 }
 
 /* FOOTER */
-
-footer{
-padding:40px 0;
-text-align:center;
-color:var(--muted);
-border-top:1px solid rgba(255,255,255,.05)
+footer {
+    padding: 60px 0;
+    text-align: center;
+    color: var(--muted);
+    border-top: 1px solid rgba(255, 255, 255, .05);
+    margin-top: 40px;
 }
 
-/* MOBILE */
+/* ANIMATIONS */
+.reveal { opacity: 0; transform: translateY(30px); transition: 1s ease; }
+.reveal.active { opacity: 1; transform: translateY(0); }
 
-@media(max-width:600px){
-
-.hamburger{
-display:block;
-font-size:2rem;
-cursor:pointer;
+@media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
 }
 
-.nav-links{
-position:absolute;
-top:70px;
-left:50%;
-transform:translateX(-50%) translateY(-20px);
-width:90%;
-max-width:320px;
-background:#050505;
-flex-direction:column;
-align-items:center;
-display:flex;
-opacity:0;
-pointer-events:none;
-padding:18px 0;
-border-radius:14px;
-border:1px solid rgba(255,255,255,.08);
-transition:all .35s ease;
-box-shadow:0 20px 60px rgba(0,0,0,.6);
-}
+/* ============================
+   MOBILE & TABLET OPTIMIZATION
+   ============================ */
 
-.nav-links a{
-margin:14px 0;
-font-size:1.1rem;
-}
+@media (max-width: 768px) {
+    .section { padding: 50px 0; }
+    
+    .hamburger { display: block; }
 
-.nav-links.show{
-opacity:1;
-pointer-events:auto;
-transform:translateX(-50%) translateY(0);
-}
-}
+    .nav-links {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 100%;
+        background: #050505;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 40px;
+        opacity: 0;
+        pointer-events: none;
+        transition: 0.3s ease;
+        z-index: 999;
+    }
 
-/* SMOOTH ANIMATIONS */
+    .nav-links.show {
+        opacity: 1;
+        pointer-events: auto;
+    }
 
-.reveal{
-opacity:1;
-transform:none;
-transition:1.2s ease
-}
+    .nav-links a {
+        margin: 0;
+        font-size: 1.5rem;
+    }
 
-.reveal.active{
-opacity:1;
-transform:translateY(0)
-}
+    /* Hero Tweaks */
+    .hero h1 { font-size: 2.5rem; }
+    .hero p { font-size: 1rem; }
+    .hero-logo { width: 60%; max-width: 250px; }
+    .hero::before { width: 80vw; height: 80vw; filter: blur(100px); }
 
-@media(prefers-reduced-motion:reduce){
-*{animation:none!important;transition:none!important}
+    /* Button Stacking */
+    .btn-group {
+        flex-direction: column;
+        width: 100%;
+        gap: 15px;
+    }
+    .btn { width: 100%; }
+
+    /* Grid Stacking */
+    .features-grid { grid-template-columns: 1fr; gap: 20px; }
+    
+    /* CTA Adjustment */
+    .cta-box { padding: 40px 20px; }
 }
 </style>
 </head>
@@ -275,14 +298,14 @@ transform:translateY(0)
 <div class="container">
 <nav>
 <div class="logo" onclick="location.href='index.html'">
-<img src="icon.png" loading="lazy" decoding="async">
+<img src="icon.png" loading="lazy" decoding="async" alt="Logo">
 <span>EnhancedTube</span>
 </div>
 
 <div class="hamburger" onclick="toggleMenu()">☰</div>
 
 <div class="nav-links">
-<a href="#features">Features</a>
+<a href="#features" onclick="toggleMenu()">Features</a>
 <a href="download.html">Download</a>
 <a href="https://github.com/aspxcts777/EnhancedTube" target="_blank">GitHub</a>
 </div>
@@ -292,109 +315,100 @@ transform:translateY(0)
 
 <section class="hero">
 <div class="container">
-
-<img src="icon.png" class="hero-logo" loading="lazy" decoding="async">
-
+<img src="icon.png" class="hero-logo" loading="lazy" decoding="async" alt="EnhancedTube Logo">
 <h1>YouTube on Desktop.<br><span>Enhanced.</span></h1>
-
 <p>No ads, OLED dark mode, hardware acceleration and seamless desktop experience.</p>
 
 <div class="btn-group">
 <a class="btn btn-primary" id="hero-dl-btn" href="download.html">Download Installer</a>
 <a class="btn btn-secondary" href="https://github.com/aspxcts777/EnhancedTube">View Source</a>
 </div>
-
 </div>
 </section>
 
 <section id="features" class="section">
 <div class="container">
-
 <div class="features-grid">
+    <div class="feature-card reveal">
+    <div class="icon-box">🚫</div>
+    <h3>Ad Nuke</h3>
+    <p>Instant ad skipping and banner removal.</p>
+    </div>
 
-<div class="feature-card reveal">
-<div class="icon-box">🚫</div>
-<h3>Ad Nuke</h3>
-<p>Instant ad skipping and banner removal.</p>
+    <div class="feature-card reveal">
+    <div class="icon-box">🎨</div>
+    <h3>Custom UI</h3>
+    <p>Accent colors, OLED mode, system sync.</p>
+    </div>
+
+    <div class="feature-card reveal">
+    <div class="icon-box">⚡</div>
+    <h3>High Performance</h3>
+    <p>AV1, hardware acceleration, zero lag.</p>
+    </div>
+
+    <div class="feature-card reveal">
+    <div class="icon-box">🔒</div>
+    <h3>Open Source</h3>
+    <p>Transparent, private and community driven.</p>
+    </div>
 </div>
-
-<div class="feature-card reveal">
-<div class="icon-box">🎨</div>
-<h3>Custom UI</h3>
-<p>Accent colors, OLED mode, system sync.</p>
-</div>
-
-<div class="feature-card reveal">
-<div class="icon-box">⚡</div>
-<h3>High Performance</h3>
-<p>AV1, hardware acceleration, zero lag.</p>
-</div>
-
-<div class="feature-card reveal">
-<div class="icon-box">🔒</div>
-<h3>Open Source</h3>
-<p>Transparent, private and community driven.</p>
-</div>
-
-</div>
-
 </div>
 </section>
 
 <section class="section">
 <div class="container">
-
 <div class="cta-box reveal">
 <h2>Ready to upgrade?</h2>
 <p style="margin:20px 0;color:var(--muted)">Get the latest release now.</p>
 <a class="btn btn-primary" id="cta-dl-btn" href="download.html">Download Latest</a>
 </div>
-
 </div>
 </section>
-<section class="section" style="text-align:center">
-  <h2 style="font-size:1.6rem">
-    <span style="
-      background:linear-gradient(135deg,#ea00ff,#6200ff);
-      -webkit-background-clip:text;
-      -webkit-text-fill-color:transparent;
-    ">
-      EnhancedMusic
-    </span> coming soon.
-  </h2>
+
+<section class="section" style="text-align:center; padding-top: 0;">
+    <h2 style="font-size: clamp(1.2rem, 4vw, 1.6rem);">
+      <span style="
+        background:linear-gradient(135deg,#ea00ff,#6200ff);
+        -webkit-background-clip:text;
+        -webkit-text-fill-color:transparent;
+      ">
+        EnhancedMusic
+      </span> coming soon.
+    </h2>
 </section>
+
 <footer>
 <div class="container">
 <p>© 2026 Aspxcts777 • MIT License</p>
-<p style="opacity:.5;font-size:.8rem">Not affiliated with Google or YouTube</p>
+<p style="opacity:.5;font-size:.8rem; margin-top: 10px;">Not affiliated with Google or YouTube</p>
 </div>
 </footer>
 
 <script defer>
 function toggleMenu(){
-document.querySelector('.nav-links').classList.toggle('show')
+    document.querySelector('.nav-links').classList.toggle('show');
 }
 
 /* Scroll reveal */
-const obs=new IntersectionObserver(e=>{
-e.forEach(i=>{
-if(i.isIntersecting)i.target.classList.add('active')
-})
-},{threshold:.1})
+const obs = new IntersectionObserver(e => {
+    e.forEach(i => {
+        if(i.isIntersecting) i.target.classList.add('active')
+    })
+}, {threshold: .1})
 
-document.querySelectorAll('.reveal').forEach(el=>obs.observe(el))
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el))
 
 /* Lazy version fetch */
-requestIdleCallback(()=>{
-fetch('https://api.github.com/repos/aspxcts777/EnhancedTube/releases/latest')
-.then(r=>r.json())
-.then(d=>{
-const heroBtn = document.getElementById("hero-dl-btn");
-const ctaBtn = document.getElementById("cta-dl-btn");
-
-if (heroBtn) heroBtn.textContent = `Download (${d.tag_name})`;
-if (ctaBtn) ctaBtn.textContent = `Download (${d.tag_name})`;
-}).catch(()=>{})
+requestIdleCallback(() => {
+    fetch('https://api.github.com/repos/aspxcts777/EnhancedTube/releases/latest')
+    .then(r => r.json())
+    .then(d => {
+        const heroBtn = document.getElementById("hero-dl-btn");
+        const ctaBtn = document.getElementById("cta-dl-btn");
+        if (heroBtn && d.tag_name) heroBtn.textContent = `Download (${d.tag_name})`;
+        if (ctaBtn && d.tag_name) ctaBtn.textContent = `Download (${d.tag_name})`;
+    }).catch(() => {})
 })
 </script>
 
