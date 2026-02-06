@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="preload" href="icon.png" as="image">
+    ~<link rel="preconnect" href="https://api.github.com">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EnhancedTube | The Ultimate Desktop YouTube Client</title>
@@ -376,7 +378,7 @@
         <div class="container">
             <nav>
                 <div class="logo" onclick="window.location.href='index.html'">
-                    <img src="https://raw.githubusercontent.com/aspxcts777/EnhancedTube/main/icon.png" alt="EnhancedTube Logo">
+                    <img src="https://raw.githubusercontent.com/aspxcts777/EnhancedTube/main/icon.png" loading="lazy" alt="EnhancedTube Logo">
                     <span>EnhancedTube</span>
                 </div>
                 <div class="nav-links">
@@ -392,7 +394,7 @@
     <section class="hero">
         <div class="container">
             <div class="hero-animate">
-                <img src="https://raw.githubusercontent.com/aspxcts777/EnhancedTube/main/icon.png" alt="EnhancedTube Logo" class="hero-logo">
+                <img src="https://raw.githubusercontent.com/aspxcts777/EnhancedTube/main/icon.png" loading="lazy" alt="EnhancedTube Logo" class="hero-logo">
             </div>
             
             <div class="hero-animate">
@@ -480,21 +482,21 @@
         </div>
     </footer>
 
-    <script>
+    <script defer>
         // 1. AUTO-UPDATE VERSION SCRIPT
-        fetch('https://api.github.com/repos/aspxcts777/EnhancedTube/releases/latest')
-            .then(response => response.json())
-            .then(data => {
-                if (data.tag_name) {
-                    const version = data.tag_name;
-                    const heroBtn = document.getElementById('hero-dl-btn');
-                    const ctaBtn = document.getElementById('cta-dl-btn');
-                    
-                    if (heroBtn) heroBtn.textContent = `Download Installer (${version})`;
-                    if (ctaBtn) ctaBtn.textContent = `Download Latest Release (${version})`;
-                }
-            })
-            .catch(error => console.log('Could not fetch latest version, using default text.'));
+        document.addEventListener("DOMContentLoaded", () => {
+  requestIdleCallback(() => {
+    fetch('https://api.github.com/repos/aspxcts777/EnhancedTube/releases/latest')
+      .then(r => r.json())
+      .then(d => {
+        if (d.tag_name) {
+          heroBtn.textContent = `Download Installer (${d.tag_name})`;
+          ctaBtn.textContent = `Download Latest Release (${d.tag_name})`;
+        }
+      })
+      .catch(()=>{});
+  });
+});
 
         // 2. SCROLL REVEAL SCRIPT
         // Uses IntersectionObserver to detect when elements enter the viewport
