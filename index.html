@@ -386,30 +386,51 @@ footer {
 </footer>
 
 <script defer>
-function toggleMenu(){
+  function toggleMenu() {
     document.querySelector('.nav-links').classList.toggle('show');
-}
+  }
 
-/* Scroll reveal */
-const obs = new IntersectionObserver(e => {
+  /* Scroll reveal */
+  const obs = new IntersectionObserver(e => {
     e.forEach(i => {
-        if(i.isIntersecting) i.target.classList.add('active')
+      if (i.isIntersecting) i.target.classList.add('active')
     })
-}, {threshold: .1})
+  }, { threshold: 0.1 });
 
-document.querySelectorAll('.reveal').forEach(el => obs.observe(el))
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
-/* Lazy version fetch */
-requestIdleCallback(() => {
-    fetch('https://api.github.com/repos/aspxcts777/EnhancedTube/releases/latest')
-    .then(r => r.json())
-    .then(d => {
-        const heroBtn = document.getElementById("hero-dl-btn");
-        const ctaBtn = document.getElementById("cta-dl-btn");
-        if (heroBtn && d.tag_name) heroBtn.textContent = `Download (${d.tag_name})`;
-        if (ctaBtn && d.tag_name) ctaBtn.textContent = `Download (${d.tag_name})`;
-    }).catch(() => {})
-})
+  /* Robust Version Fetcher */
+  (function() {
+    const repoOwner = "aspxcts777";
+    const repoName = "EnhancedTube";
+    
+    fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/releases/latest`)
+      .then(res => {
+        if (!res.ok) {
+          // If 404, it means the repo or release doesn't exist yet
+          if(res.status === 404) console.log("Repo or Release not found.");
+          if(res.status === 403) console.log("GitHub API rate limit exceeded.");
+          throw new Error(`API Error: ${res.status}`);
+        }
+        return res.json();
+      })
+      .then(data => {
+        // Ensure tag_name actually exists in the response
+        if (data && data.tag_name) {
+          const heroBtn = document.getElementById("hero-dl-btn");
+          const ctaBtn = document.getElementById("cta-dl-btn");
+
+          const versionLabel = `Download (${data.tag_name})`;
+
+          if (heroBtn) heroBtn.textContent = versionLabel;
+          if (ctaBtn) ctaBtn.textContent = versionLabel;
+        }
+      })
+      .catch(err => {
+        // This will print the specific error to your browser console (F12)
+        console.error("Version fetch failed:", err);
+      });
+  })();
 </script>
 
 </body>
