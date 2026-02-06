@@ -4,11 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>EnhancedTube | YouTube on Desktop, Enhanced</title>
-
-<meta name="description" content="EnhancedTube – a fast, ad-free, customizable YouTube desktop client with OLED mode and hardware acceleration.">
-
+<meta name="description" content="EnhancedTube – a fast, ad-free, customizable YouTube desktop client.">
 <link rel="icon" sizes="512x512" href="icon.png">
-<link rel="apple-touch-icon" href="icon.png">
 
 <style>
 :root {
@@ -21,14 +18,20 @@
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html, body { max-width: 100%; overflow-x: hidden; }
+html { scroll-behavior: smooth; }
 body { background: var(--bg); color: var(--text); font-family: Segoe UI, Roboto, Arial, sans-serif; }
-
-/* Global Image Reset */
 img { max-width: 100%; height: auto; display: block; }
 
-.container { max-width: 1200px; margin: auto; padding: 0 24px; } /* Increased padding slightly */
+/* --- LAYOUT UTILS --- */
+.container { 
+    max-width: 1200px; 
+    margin: auto; 
+    padding: 0 24px; 
+}
+
 .section { padding: 80px 0; }
 
+/* --- HEADER FIX --- */
 header {
     position: fixed;
     top: 0;
@@ -37,14 +40,23 @@ header {
     backdrop-filter: blur(10px);
     border-bottom: 1px solid rgba(255, 255, 255, .05);
     z-index: 1000;
-    height: 70px; /* Fixed height for consistency */
+    height: 70px;
     display: flex;
     align-items: center;
 }
 
+/* FIX: We target the container specifically inside the header 
+   to override the 1200px limit.
+*/
+header .container {
+    max-width: 100%;       /* Allow full width */
+    width: 100%;           /* Force full width */
+    padding: 0 40px;       /* Add breathing room on the edges */
+}
+
 nav {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; /* Pushes Logo Left, Links Right */
     align-items: center;
     width: 100%;
 }
@@ -56,10 +68,11 @@ nav {
     font-weight: 800;
     font-size: 1.4rem;
     cursor: pointer;
-    z-index: 1001; /* Keeps logo above mobile menu */
+    z-index: 1001;
+    white-space: nowrap; /* Prevents logo text wrapping */
 }
 
-.logo img { height: 40px; } /* Adjusted size */
+.logo img { height: 40px; }
 
 .logo span {
     background: var(--grad);
@@ -70,7 +83,7 @@ nav {
 .nav-links { display: flex; align-items: center; }
 
 .nav-links a {
-    margin-left: 30px;
+    margin-left: 40px; /* Increased spacing between links */
     color: var(--muted);
     text-decoration: none;
     font-weight: 500;
@@ -84,18 +97,18 @@ nav {
     font-size: 1.8rem;
     cursor: pointer;
     z-index: 1002;
-    padding: 10px; /* larger touch target */
+    padding: 10px;
 }
 
-/* HERO */
+/* --- HERO --- */
 .hero {
-    min-height: 100vh; /* Changed to full VH */
+    min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
     position: relative;
-    padding-top: 80px; /* offset header */
+    padding-top: 80px;
     padding-bottom: 40px;
 }
 
@@ -109,13 +122,12 @@ nav {
     opacity: .15;
     border-radius: 50%;
     z-index: -1;
-    top: 50%;
-    left: 50%;
+    top: 50%; left: 50%;
     transform: translate(-50%, -50%);
 }
 
 .hero-logo {
-    width: 300px; /* Slightly smaller base size */
+    width: 300px;
     margin: 0 auto 25px auto;
     filter: drop-shadow(0 0 25px rgba(234, 0, 255, .4));
 }
@@ -157,7 +169,7 @@ nav {
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: transform 0.2s;
 }
 
 .btn:active { transform: scale(0.98); }
@@ -174,7 +186,7 @@ nav {
     color: #fff;
 }
 
-/* FEATURES */
+/* --- FEATURES --- */
 .features-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -188,7 +200,6 @@ nav {
     border-radius: 16px;
     border: 1px solid rgba(255, 255, 255, .05);
     transition: .3s;
-    height: 100%;
 }
 
 .feature-card:hover {
@@ -196,27 +207,22 @@ nav {
     border-color: rgba(234, 0, 255, .35);
 }
 
-.icon-box {
-    font-size: 2rem;
-    margin-bottom: 18px;
-}
-
+.icon-box { font-size: 2rem; margin-bottom: 18px; }
 .feature-card h3 { margin-bottom: 10px; font-size: 1.2rem; }
 .feature-card p { color: var(--muted); line-height: 1.5; }
 
-/* CTA */
+/* --- CTA --- */
 .cta-box {
-    background: var(--card);
+    background: linear-gradient(to bottom, var(--card), #0a0a0a);
     padding: 60px 20px;
     border-radius: 24px;
     border: 1px solid rgba(255, 255, 255, .1);
     text-align: center;
     max-width: 800px;
     margin: auto;
-    background: linear-gradient(to bottom, var(--card), #0a0a0a);
 }
 
-/* FOOTER */
+/* --- FOOTER --- */
 footer {
     padding: 60px 0;
     text-align: center;
@@ -225,7 +231,7 @@ footer {
     margin-top: 40px;
 }
 
-/* ANIMATIONS */
+/* --- ANIMATIONS --- */
 .reveal { opacity: 0; transform: translateY(30px); transition: 1s ease; }
 .reveal.active { opacity: 1; transform: translateY(0); }
 
@@ -233,61 +239,38 @@ footer {
     * { animation: none !important; transition: none !important; }
 }
 
-/* ============================
-   MOBILE & TABLET OPTIMIZATION
-   ============================ */
-
+/* --- MOBILE & TABLET --- */
 @media (max-width: 768px) {
-    .section { padding: 50px 0; }
+    /* Reduce header padding on mobile for space */
+    header .container { padding: 0 20px; }
     
+    .section { padding: 50px 0; }
     .hamburger { display: block; }
 
     .nav-links {
         position: fixed;
-        top: 0;
-        left: 0;
-        height: 100vh;
-        width: 100%;
+        top: 0; left: 0;
+        height: 100vh; width: 100%;
         background: #050505;
         flex-direction: column;
         justify-content: center;
-        align-items: center;
         gap: 40px;
-        opacity: 0;
-        pointer-events: none;
+        opacity: 0; pointer-events: none;
         transition: 0.3s ease;
         z-index: 999;
     }
 
-    .nav-links.show {
-        opacity: 1;
-        pointer-events: auto;
-    }
+    .nav-links.show { opacity: 1; pointer-events: auto; }
+    .nav-links a { margin: 0; font-size: 1.5rem; }
 
-    .nav-links a {
-        margin: 0;
-        font-size: 1.5rem;
-    }
-
-    /* Hero Tweaks */
     .hero h1 { font-size: 2.5rem; }
-    .hero p { font-size: 1rem; }
     .hero-logo { width: 60%; max-width: 250px; }
     .hero::before { width: 80vw; height: 80vw; filter: blur(100px); }
-
-    /* Button Stacking */
-    .btn-group {
-        flex-direction: column;
-        width: 100%;
-        gap: 15px;
-    }
-    .btn { width: 100%; }
-
-    /* Grid Stacking */
-    .features-grid { grid-template-columns: 1fr; gap: 20px; }
     
-    /* CTA Adjustment */
-    .cta-box { padding: 40px 20px; }
+    .btn-group { flex-direction: column; width: 100%; gap: 15px; }
+    .btn { width: 100%; }
+    
+    .features-grid { grid-template-columns: 1fr; gap: 20px; }
 }
 </style>
 </head>
@@ -297,25 +280,26 @@ footer {
 <header>
 <div class="container">
 <nav>
-<div class="logo" onclick="location.href='index.html'">
-<img src="icon.png" loading="lazy" decoding="async" alt="Logo">
-<span>EnhancedTube</span>
-</div>
+    <div class="logo" onclick="location.href='index.html'">
+        <img src="icon.png" loading="lazy" decoding="async" alt="Logo">
+        <span>EnhancedTube</span>
+    </div>
 
-<div class="hamburger" onclick="toggleMenu()">☰</div>
+    <div class="hamburger" onclick="toggleMenu()">☰</div>
 
-<div class="nav-links">
-<a href="#features" onclick="toggleMenu()">Features</a>
-<a href="download.html">Download</a>
-<a href="https://github.com/aspxcts777/EnhancedTube" target="_blank">GitHub</a>
-</div>
+    <div class="nav-links">
+        <a href="#features" onclick="toggleMenu()">Features</a>
+        <a href="about.html">About</a>
+        <a href="download.html">Download</a>
+        <a href="https://github.com/aspxcts777/EnhancedTube" target="_blank">GitHub</a>
+    </div>
 </nav>
 </div>
 </header>
 
 <section class="hero">
 <div class="container">
-<img src="icon.png" class="hero-logo" loading="lazy" decoding="async" alt="EnhancedTube Logo">
+<img src="icon.png" class="hero-logo" loading="lazy" decoding="async" alt="Logo">
 <h1>YouTube on Desktop.<br><span>Enhanced.</span></h1>
 <p>No ads, OLED dark mode, hardware acceleration and seamless desktop experience.</p>
 
@@ -330,27 +314,24 @@ footer {
 <div class="container">
 <div class="features-grid">
     <div class="feature-card reveal">
-    <div class="icon-box">🚫</div>
-    <h3>Ad Nuke</h3>
-    <p>Instant ad skipping and banner removal.</p>
+        <div class="icon-box">🚫</div>
+        <h3>Ad Nuke</h3>
+        <p>Instant ad skipping and banner removal.</p>
     </div>
-
     <div class="feature-card reveal">
-    <div class="icon-box">🎨</div>
-    <h3>Custom UI</h3>
-    <p>Accent colors, OLED mode, system sync.</p>
+        <div class="icon-box">🎨</div>
+        <h3>Custom UI</h3>
+        <p>Accent colors, OLED mode, system sync.</p>
     </div>
-
     <div class="feature-card reveal">
-    <div class="icon-box">⚡</div>
-    <h3>High Performance</h3>
-    <p>AV1, hardware acceleration, zero lag.</p>
+        <div class="icon-box">⚡</div>
+        <h3>High Performance</h3>
+        <p>AV1, hardware acceleration, zero lag.</p>
     </div>
-
     <div class="feature-card reveal">
-    <div class="icon-box">🔒</div>
-    <h3>Open Source</h3>
-    <p>Transparent, private and community driven.</p>
+        <div class="icon-box">🔒</div>
+        <h3>Open Source</h3>
+        <p>Transparent, private and community driven.</p>
     </div>
 </div>
 </div>
@@ -359,20 +340,16 @@ footer {
 <section class="section">
 <div class="container">
 <div class="cta-box reveal">
-<h2>Ready to upgrade?</h2>
-<p style="margin:20px 0;color:var(--muted)">Get the latest release now.</p>
-<a class="btn btn-primary" id="cta-dl-btn" href="download.html">Download Latest</a>
+    <h2>Ready to upgrade?</h2>
+    <p style="margin:20px 0;color:var(--muted)">Get the latest release now.</p>
+    <a class="btn btn-primary" id="cta-dl-btn" href="download.html">Download Latest</a>
 </div>
 </div>
 </section>
 
 <section class="section" style="text-align:center; padding-top: 0;">
     <h2 style="font-size: clamp(1.2rem, 4vw, 1.6rem);">
-      <span style="
-        background:linear-gradient(135deg,#ea00ff,#6200ff);
-        -webkit-background-clip:text;
-        -webkit-text-fill-color:transparent;
-      ">
+      <span style="background:linear-gradient(135deg,#ea00ff,#6200ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">
         EnhancedMusic
       </span> coming soon.
     </h2>
@@ -386,51 +363,41 @@ footer {
 </footer>
 
 <script defer>
-  function toggleMenu() {
+function toggleMenu(){
     document.querySelector('.nav-links').classList.toggle('show');
-  }
+}
 
-  /* Scroll reveal */
-  const obs = new IntersectionObserver(e => {
+/* Scroll reveal */
+const obs = new IntersectionObserver(e => {
     e.forEach(i => {
-      if (i.isIntersecting) i.target.classList.add('active')
+        if (i.isIntersecting) i.target.classList.add('active')
     })
-  }, { threshold: 0.1 });
+}, { threshold: 0.1 });
 
-  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
-  /* Robust Version Fetcher */
-  (function() {
+/* Robust Version Fetcher */
+(function() {
     const repoOwner = "aspxcts777";
     const repoName = "EnhancedTube";
     
     fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/releases/latest`)
       .then(res => {
-        if (!res.ok) {
-          // If 404, it means the repo or release doesn't exist yet
-          if(res.status === 404) console.log("Repo or Release not found.");
-          if(res.status === 403) console.log("GitHub API rate limit exceeded.");
-          throw new Error(`API Error: ${res.status}`);
-        }
+        if (!res.ok) throw new Error(`API Error: ${res.status}`);
         return res.json();
       })
       .then(data => {
-        // Ensure tag_name actually exists in the response
         if (data && data.tag_name) {
           const heroBtn = document.getElementById("hero-dl-btn");
           const ctaBtn = document.getElementById("cta-dl-btn");
-
           const versionLabel = `Download (${data.tag_name})`;
 
           if (heroBtn) heroBtn.textContent = versionLabel;
           if (ctaBtn) ctaBtn.textContent = versionLabel;
         }
       })
-      .catch(err => {
-        // This will print the specific error to your browser console (F12)
-        console.error("Version fetch failed:", err);
-      });
-  })();
+      .catch(err => console.error("Version fetch failed:", err));
+})();
 </script>
 
 </body>
