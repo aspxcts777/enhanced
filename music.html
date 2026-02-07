@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EnhancedMusic | Ultimate Desktop Streaming</title>
+    <meta name="description" content="Stream music on desktop without interruptions. Ad-free, high-fidelity audio, and lightweight.">
+    <link rel="icon" type="image/png" href="music.png">
+    
+    <style>
+        /* --- MUSIC THEME VARIABLES --- */
+        :root {
+            /* CYAN / BLUE GRADIENT for Music */
+            --primary-gradient: linear-gradient(135deg, #ea00ff, #6200ff 100%);
+            --glow-color: rgba(98, 0, 255, 0.4);
+            
+            --bg-color: #050505;
+            --card-bg: #121212;
+            --text-main: #ffffff;
+            --text-muted: #a0a0a0;
+            --font-main: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            --border-radius: 12px;
+        }
+
+        html { scroll-behavior: smooth; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: var(--bg-color); color: var(--text-main); font-family: var(--font-main); line-height: 1.6; overflow-x: hidden; }
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        img { max-width: 100%; height: auto; display: block; }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+        .section { padding: 80px 0; }
+
+        /* --- HEADER (Matched to Tube.html) --- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(5, 5, 5, .9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, .05);
+            z-index: 1000;
+            height: 70px;
+            display: flex;
+            align-items: center;
+        }
+
+        header .container {
+            max-width: 100%;
+            width: 100%;
+            padding: 0 40px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 800;
+            font-size: 1.4rem;
+            cursor: pointer;
+            z-index: 1001;
+            white-space: nowrap;
+        }
+
+        .logo img { height: 40px; }
+
+        .logo span {
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links { display: flex; align-items: center; }
+
+        .nav-links a {
+            margin-left: 40px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover { color: #fff; }
+
+        .hamburger {
+            display: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            z-index: 1002;
+            padding: 10px;
+        }
+
+        /* --- HERO --- */
+        .hero { 
+            min-height: 100vh;
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            text-align: center; 
+            position: relative; 
+            padding-top: 80px;
+            padding-bottom: 40px;
+        }
+
+        .hero::before { 
+            content: ''; 
+            position: absolute; 
+            width: 600px; 
+            height: 600px; 
+            background: var(--primary-gradient); 
+            filter: blur(150px); 
+            opacity: 0.15; 
+            border-radius: 50%; 
+            z-index: -1; 
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .hero-logo {
+            width: 200px; 
+            margin: 0 auto 25px auto;
+            filter: drop-shadow(0 0 25px rgba(98, 0, 255, 0.4));
+        }
+
+        .hero h1 { 
+            font-size: 4rem; 
+            line-height: 1.1; 
+            margin-bottom: 20px; 
+            letter-spacing: -1px;
+        }
+        .hero h1 span { background: var(--primary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero p { 
+            max-width: 600px;
+            margin: auto;
+            color: var(--text-muted); 
+            font-size: 1.25rem;
+            line-height: 1.6;
+        }
+
+        .btn-group { display: flex; gap: 20px; justify-content: center; margin-top: 40px; }
+
+        .cta-box {
+        background: linear-gradient(to bottom, var(--card), #0a0a0a);
+        padding: 60px 20px;
+        border-radius: 24px;
+        border: 1px solid rgba(255, 255, 255, .1);
+        text-align: center;
+        max-width: 800px;
+        margin: auto;
+        }
+        
+        .btn { 
+            padding: 14px 32px; 
+            border-radius: 50px; 
+            font-weight: 600; 
+            cursor: pointer; 
+            text-decoration: none;
+            display: inline-flex; 
+            justify-content: center;
+            align-items: center; 
+            transition: transform 0.2s;
+        }
+        .btn:active { transform: scale(0.98); }
+
+        .btn-primary { background: var(--primary-gradient); color: #ffffff; box-shadow: 0 10px 30px var(--glow-color); }
+        .btn-secondary { background: rgba(255, 255, 255, 0.1); color: rgb(255, 255, 255); border: 1px solid rgba(255, 255, 255, 0.1); }
+
+        /* --- FEATURES --- */
+        .features-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; margin-top: 20px; }
+        .feature-card { background: var(--card-bg); padding: 30px; border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.05); transition: 0.3s; }
+        .feature-card:hover { transform: translateY(-6px); border-color: rgba(98, 0, 255, 0.4); }
+        .icon-box { font-size: 2rem; margin-bottom: 18px; }
+        .feature-card h3 { margin-bottom: 10px; font-size: 1.2rem; }
+        .feature-card p { color: var(--text-muted); line-height: 1.5; }
+
+        /* --- FOOTER --- */
+        footer { padding: 60px 0; text-align: center; color: var(--text-muted); border-top: 1px solid rgba(255,255,255,0.05); margin-top: 40px; }
+
+        /* --- ANIMATIONS --- */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .hero-animate { opacity: 0; animation: fadeUp 1s ease-out forwards; }
+        .hero-animate:nth-child(1) { animation-delay: 0.2s; }
+        .hero-animate:nth-child(2) { animation-delay: 0.4s; }
+        .hero-animate:nth-child(3) { animation-delay: 0.6s; }
+        .hero-animate:nth-child(4) { animation-delay: 0.8s; }
+
+        .reveal { opacity: 0; transform: translateY(50px); transition: all 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        @media (prefers-reduced-motion: reduce) {
+            * { animation: none !important; transition: none !important; }
+        }
+
+        /* --- MOBILE & TABLET --- */
+        @media (max-width: 768px) {
+            header .container { padding: 0 20px; }
+            .section { padding: 50px 0; }
+            .hamburger { display: block; }
+
+            .nav-links {
+                position: fixed;
+                top: 0; left: 0;
+                height: 100vh; width: 100%;
+                background: #050505;
+                flex-direction: column;
+                justify-content: center;
+                gap: 40px;
+                opacity: 0; pointer-events: none;
+                transition: 0.3s ease;
+                z-index: 999;
+            }
+
+            .nav-links.show { opacity: 1; pointer-events: auto; }
+            .nav-links a { margin: 0; font-size: 1.5rem; }
+
+            .hero h1 { font-size: 2.5rem; }
+            .hero-logo { width: 80px; } /* Kept small for music icon */
+            .hero::before { width: 80vw; height: 80vw; filter: blur(100px); }
+            
+            .btn-group { flex-direction: column; width: 100%; gap: 15px; }
+            .btn { width: 100%; }
+            .features-grid { grid-template-columns: 1fr; gap: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo" onclick="location.href='index.html'">
+                    <img src="music.png" alt="EnhancedMusic Logo">
+                    <span>EnhancedMusic</span>
+                </div>
+
+                <div class="hamburger" onclick="toggleMenu()">☰</div>
+
+                <div class="nav-links">
+                    <a href="#features" onclick="toggleMenu()">Features</a>
+                    <a href="about.html">About</a>
+                    <a href="download-music.html">Download</a>
+                    <a href="https://github.com/aspxcts777/EnhancedMusic" target="_blank">GitHub</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-animate">
+                <img src="music.png" alt="Music Logo" class="hero-logo">
+            </div>
+            
+            <div class="hero-animate">
+                <h1>Music Streaming.<br><span>Unlocked.</span></h1>
+            </div>
+
+            <div class="hero-animate">
+                <p>No ads, OLED dark mode, GPU Acceleration and seamless desktop experience. The way music should be.</p>
+            </div>
+
+            <div class="hero-animate btn-group">
+                <a href="download-music.html" class="btn btn-primary" id="dl-btn">
+                    Download Installer
+                </a>
+                <a href="https://github.com/aspxcts777/EnhancedMusic" class="btn btn-secondary">
+                    View Source
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="section">
+        <div class="container">
+            <div class="features-grid">
+                <div class="feature-card reveal">
+                    <div class="icon-box">🔇</div>
+                    <h3>Silence the Noise</h3>
+                    <p>Ad-blocking technology keeps your playlists flowing without a single interruption.</p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="icon-box">🎨</div>
+                    <h3>Custom UI</h3>
+                    <p>Accent colors, OLED mode, system sync.</p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="icon-box">⚡</div>
+                        <h3>High Performance</h3>
+                    <p>GPU Acceleration, optimized rendering and seamless playback.</p>
+                    </div>
+                    <div class="feature-card reveal">
+                    <div class="icon-box">🔒</div>
+                    <h3>Open Source</h3>
+                    <p>Transparent, private and community driven.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+<section class="section">
+<div class="container">
+<div class="cta-box reveal">
+    <h2>Ready to upgrade?</h2>
+    <p style="margin:20px 0;color:var(--muted)">Get the latest release now.</p>
+    <a class="btn btn-primary" id="cta-dl-btn" href="download-music.html">Download Latest</a>
+</div>
+</div>
+</section>
+
+<footer>
+<div class="container">
+<p>© 2026 Aspxcts777 • MIT License</p>
+<p style="opacity:.5;font-size:.8rem; margin-top: 10px;">Not affiliated with Google or YouTube</p>
+</div>
+</footer>
+
+    <script defer>
+        function toggleMenu(){
+            document.querySelector('.nav-links').classList.toggle('show');
+        }
+
+        // Scroll Reveal
+        const observerOptions = { threshold: 0.1 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+        
+        // Auto-fetch latest version tag for Music
+        (function() {
+            const repoOwner = "aspxcts777";
+            const repoName = "EnhancedMusic";
+            
+            fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/releases/latest`)
+              .then(res => {
+                if (!res.ok) throw new Error(`API Error: ${res.status}`);
+                return res.json();
+              })
+              .then(data => {
+                if (data && data.tag_name) {
+                  const btn = document.getElementById("dl-btn");
+                  const ctaBtn = document.getElementById("cta-dl-btn");
+                  if (btn) btn.textContent = `Download Installer (${data.tag_name})`;
+                  if (ctaBtn) ctaBtn.textContent = `Download Latest (${data.tag_name})`;
+                }
+              })
+              .catch(err => console.error("Version fetch failed:", err));
+        })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>License | EnhancedTube</title>
+<meta name="description" content="MIT License information for EnhancedTube and EnhancedMusic.">
+<link rel="icon" sizes="512x512" href="tube.png">
+
+<style>
+:root {
+    /* Primary Purple Theme */
+    --grad: linear-gradient(135deg, #ea00ff, #6200ff);
+    --bg: #050505;
+    --card: #121212;
+    --text: #fff;
+    --muted: #a0a0a0;
+    --code-bg: #0a0a0a;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--text); font-family: Segoe UI, Roboto, Arial, sans-serif; overflow-x: hidden; }
+
+/* --- ANIMATIONS --- */
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.hero-animate {
+    opacity: 0;
+    animation: fadeUp 1s ease-out forwards;
+}
+.hero-animate:nth-child(1) { animation-delay: 0.2s; }
+.hero-animate:nth-child(2) { animation-delay: 0.4s; }
+
+.reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s ease-out; }
+.reveal.active { opacity: 1; transform: translateY(0); }
+
+/* --- LAYOUT --- */
+.container { max-width: 900px; margin: auto; padding: 0 24px; }
+.section { padding: 80px 0; }
+
+/* --- HEADER --- */
+header {
+    position: fixed;
+    top: 0; width: 100%;
+    background: rgba(5, 5, 5, .9);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, .05);
+    z-index: 1000;
+    height: 70px;
+    display: flex;
+    align-items: center;
+}
+header .container { max-width: 100%; width: 100%; padding: 0 40px; }
+
+nav { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+
+.logo {
+    display: flex; align-items: center; gap: 12px;
+    font-weight: 800; font-size: 1.4rem; cursor: pointer; white-space: nowrap;
+}
+.logo img { height: 40px; }
+.logo span { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+.nav-links { display: flex; align-items: center; }
+.nav-links a { margin-left: 40px; color: var(--muted); text-decoration: none; font-weight: 500; transition: color 0.2s; }
+.nav-links a:hover { color: #fff; }
+
+.hamburger { display: none; font-size: 1.8rem; cursor: pointer; padding: 10px; }
+
+/* --- HERO --- */
+.hero {
+    padding-top: 180px;
+    padding-bottom: 60px;
+    text-align: center;
+}
+.hero h1 { font-size: 3rem; margin-bottom: 10px; }
+.hero h1 span { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.hero p { color: var(--muted); font-size: 1.1rem; }
+
+/* --- LICENSE BOX --- */
+.license-box {
+    background: var(--code-bg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 40px;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace; /* Monospace for legal text look */
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: #d0d0d0;
+    white-space: pre-wrap; /* Preserves formatting */
+    overflow-x: auto;
+    box-shadow: 0 0 30px rgba(0,0,0,0.5);
+}
+
+.license-box strong { color: #fff; font-weight: 700; }
+
+/* --- FOOTER --- */
+footer { padding: 60px 0; text-align: center; color: var(--muted); border-top: 1px solid rgba(255, 255, 255, .05); margin-top: 40px; }
+
+/* --- MOBILE --- */
+@media (max-width: 768px) {
+    header .container { padding: 0 20px; }
+    .hamburger { display: block; }
+    .nav-links {
+        position: fixed; top: 0; left: 0; height: 100vh; width: 100%;
+        background: #050505; flex-direction: column; justify-content: center;
+        gap: 40px; opacity: 0; pointer-events: none; transition: 0.3s ease; z-index: 999;
+    }
+    .nav-links.show { opacity: 1; pointer-events: auto; }
+    .license-box { padding: 20px; font-size: 0.85rem; }
+    .hero h1 { font-size: 2.5rem; }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<div class="container">
+<nav>
+    <div class="logo" onclick="location.href='index.html'">
+        <img src="tube.png" loading="lazy" alt="Logo">
+        <span>EnhancedTube</span>
+    </div>
+    <div class="hamburger" onclick="toggleMenu()">☰</div>
+    <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="download.html">Download</a>
+        <a href="https://github.com/aspxcts777/EnhancedTube" target="_blank">GitHub</a>
+    </div>
+</nav>
+</div>
+</header>
+
+<section class="hero">
+<div class="container">
+    <div class="hero-animate">
+        <h1>Open Source <span>License</span></h1>
+    </div>
+    <div class="hero-animate">
+        <p>EnhancedTube and EnhancedMusic are free software, licensed under MIT.</p>
+    </div>
+</div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+<div class="container">
+    <div class="license-box reveal">
+This project is licensed under the MIT License.
+
+EnhancedTube Copyright (c) 2026 Aspxcts
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+Any Person or User who is sharing this project must credit Aspxcts (Aspxcts777) with proper credits including linking the original project.
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+    </div>
+
+    <div class="reveal" style="text-align: center; margin-top: 40px;">
+        <p style="color: var(--muted); margin-bottom: 20px;">
+            This license applies to the source code available on our repositories.
+        </p>
+        <a href="https://github.com/aspxcts777/EnhancedTube?tab=readme-ov-file#-license" target="_blank" style="color: #ea00ff; text-decoration: underline;">
+            View Original File on GitHub
+        </a>
+    </div>
+
+</div>
+</section>
+
+<footer>
+<div class="container">
+<p>© 2026 Aspxcts777 • MIT License</p>
+</div>
+</footer>
+
+<script>
+function toggleMenu(){
+    document.querySelector('.nav-links').classList.toggle('show');
+}
+
+// Scroll Reveal
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+        }
+    });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+</script>
+
+</body>
+</html>
